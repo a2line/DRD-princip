@@ -3,7 +3,7 @@
 ########################################################################
 # Variables primordiales                                               #
 ########################################################################
-NAME          = project# # Le nom du projet, cette variable sera       #
+NAME          = DRD-princip# # Le nom du projet, cette variable sera   #
                          # placée à la racine du nom de fichier de     #
                          # sortie                                      #
 ########################################################################
