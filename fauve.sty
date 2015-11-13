@@ -20,6 +20,10 @@
 \RequirePackage{lettrine}
 \RequirePackage{multicol}
 \RequirePackage{geometry}
+\RequirePackage{dramatist}
+\RequirePackage{etoolbox}
+\RequirePackage{enumitem}
+\RequirePackage{epigraph}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{xspace} % Le paquet xspace sert essentiellement à la redéffinition de la page de garde.
 \RequirePackage{ifthen} % Introduction des condition pour tester la valeure restante de la page nécéssaire à l’insertion d’un cul-de-lampe (Com).
@@ -577,6 +581,55 @@ detect-all,
   {Voir #1 pour connaître l’ensemble des versions et révisions de ce document.}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Francisation du paquet `dramatist`                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\scenename}{Scène}          % Permet à la commande `\newscene` d’utiliser le mot français « Scène ».
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Justification à droite des noms de personnages                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Les redéfinitions suivantes ont pour but de faire en sorte que les noms de perssonnages aient une présentation allignée à gauche de leur répliques.
+% La solution fut trouvée sur tex.stackexchange.com
+% https://tex.stackexchange.com/questions/39360/justification-when-using-the-dramatist-package
+
+
+% Modifications des marges pour les adaptées aux contraintes de la nouvelle présentation.
+\newenvironment{changemargin}[2]{\begin{list}{}%
+{%
+  \setlength{\topsep}{0cm}%
+  \setlength{\leftmargin}{0cm}%
+  \setlength{\rightmargin}{0cm}%
+  \setlength{\listparindent}{\parindent}%
+  \setlength{\parsep}{0cm plus 1cm}%
+  \addtolength{\leftmargin}{#1}%
+  \addtolength{\rightmargin}{#2}%
+}\item }{\end{list}}
+
+
+% Redéffinition à proprement parler de `dramatist`.
+\makeatletter
+\renewenvironment{drama}[3]
+{%
+  \settowidth{\speakswidth}{\speaksfont{#3}\speaksdel\hspace{\speechskip}}
+  \begin{changemargin}{#1}{#2}
+    \if@lnpa
+      \PackageWarning{dramatist}{\lnpwarning{a}}
+    \fi
+%
+    \if@lnps
+      \PackageWarning{dramatist}{\lnpwarning{s}}
+    \fi
+    \begin{itemize}[labelwidth=\speakswidth,leftmargin=!]%
+}%
+{%
+    \end{itemize}
+  \end{changemargin}
+}
+
+\patchcmd{\speaker}{\item[#1\speaksdel]}{\item[\speaksfont#1]}{}{}
+\patchcmd{\@character}{\item[#1\speaksdel]}{\item[\speaksfont#1]}{}{}
+\makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FIN%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FIN%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
