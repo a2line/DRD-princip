@@ -100,9 +100,9 @@ all:
 
 compile:
 	${COMPIL}
-	#$(BIB)      ${PROCNAME} ; # Traitement de la bibliographie [À décomenter si besoin de bibliographie].
+	$(BIB)      ${PROCNAME} ; # Traitement de la bibliographie [À décomenter si besoin de bibliographie].
 	#$(MAKEGLOS) ${PROCNAME} ; # Traitmeent du glossaire [À décomenter si besoin de glossaire].
-	#${FULLCOMPIL}
+	${FULLCOMPIL}
 
 simplecomplie:
 	${COMPIL}
