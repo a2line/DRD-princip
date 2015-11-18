@@ -4,8 +4,9 @@
 
 %% Chargement des extensions primordiales.
 \RequirePackage{fontspec} % Utilisation de XeTeX.
-\RequirePackage[french,francais,latin,russian,greek]{babel} % Le Français est la langue principale.
+\RequirePackage[latin,russian,greek,francais,french]{babel} % Le Français est la langue principale.
 \RequirePackage{polyglossia}
+\setdefaultlanguage{french}
 \RequirePackage{arabtex}
 \RequirePackage{xunicode}
 \RequirePackage{fontenc}
@@ -335,7 +336,8 @@ detect-all,
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newdateformat{fdate}{\THEYEAR{} \shortmonthname[\THEMONTH]{} au~{\THEDAY}} % Format de date littérale <AAAA> <mois> au <JJ>.
+%\newdateformat{fdate}{\THEYEAR{} \shortmonthname[\THEMONTH]{} au~{\THEDAY}} % Format de date littérale <AAAA> <mois> au <JJ>.
+\newdateformat{fauvedate}{\THEYEAR{} \shortmonthname[\THEMONTH]{} le {\THEDAY}}
 
 \newcommand{\debate}[1]{{\setromanfont{DejaVu Sans}⚔}\,#1\,{\setromanfont{DejaVu Sans}⚔}}             % Mise entre épées-croisées des passages sujets à quotion. (Spécificité de [mes](http://taniere.info/littera/idiolecte/#Typographie) usages typographiques personnels)
 \newcommand\work[1]{\emph{#1}}                                     % Mise en italique des noms d’œuvres.
@@ -560,12 +562,13 @@ detect-all,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Francisation
-\gappto\captionsfrench{\renwocamand{\contentsname}{Sommaire}}
-\newcommand\makebeginintoc{%
-  \renwocamand{\contentsname}{Sommaire}
-  \tableofcontent
-  \renwocamand{\contentsname}{Table des matières}
-}
+%\gappto\captionsfrench{\renwocamand{\contentsname}{Sommaire}}
+%\newcommand\makebeginintoc{%
+%  \renwocamand{\contentsname}{Sommaire}
+%  \tableofcontent
+%  \renwocamand{\contentsname}{Table des matières}
+%}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
