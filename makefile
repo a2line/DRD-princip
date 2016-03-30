@@ -133,9 +133,10 @@ archive:
 	tar --gzip --create --verbose --file ${NAME}.tar.gz `ls | grep --line-regexp --file=archivedfiles | tr '\n' ' '` # N’archiver que les fichiers déffinits dans la variable `$ARCHIVED`.
 
 clean:
-	cat archivedfiles > temporarycleanfiles ; (ls | grep --extended-regexp "${PRODUCED}" >> temporarycleanfiles ; true) ; (ls | grep --extended-regexp "${PROTECTED}" >> temporarycleanfiles ; true)
-	for f in `ls | grep  --invert-match --line-regexp --file=temporarycleanfiles` ; do echo Suppression de $$f ; rm $$f ; done # Suprimer tous les fichiers du répertoire, à l’exeption de ceux définits dans la variable `$PROTECTED`.
+	for f in `ls | grep --extended-regexp  "(^${NAME}(-Ed.-(sav|com)|)((-agressif|)(-imprim|)(-NB|))(\.(aux|bbl|blg|glg|glo|gls|ist|log|out|run\.xml)|-blx\.bib)|*\.tex\.project\.vim)"` ; do echo Suppression de $$f ; rm $$f ; done ;#
+	for f in `ls | grep --extended-regexp  "(.*(\.orig|~))"` ; do echo Suppression de $$f ; rm $$f ; done ;#
+
 
 mrproper:
-	cat archivedfiles > temporarymrproperfiles ; (ls | grep --extended-regexp "${PROTECTED}" >> temporarymrproperfiles ; true)
-	for f in `ls | grep  --invert-match --line-regexp --file=temporarymrproperfiles` ; do echo Suppression de $$f ; rm $$f ; done # Suprimer tous les fichiers du répertoire, à l’exeption de ceux définits dans la variable `$PROTECTED`.
+	make clean;#
+	for f in `ls | grep --extended-regexp  "^${NAME}(-Ed.-(sav|com)|)((-agressif|)(-imprim|)(-NB|))\.pdf"` ; do echo Suppression de $$f ; rm $$f ; done
